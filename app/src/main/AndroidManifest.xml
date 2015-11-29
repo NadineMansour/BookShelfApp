@@ -99,6 +99,10 @@
         <activity
             android:name=".Quote_new"
             android:label="@string/title_activity_quote_new"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Search_result"
+            android:label="@string/title_activity_search_result"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

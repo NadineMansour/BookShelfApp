@@ -27,6 +27,11 @@ public class Search extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    public void search_submit(View view) {
+        Intent intent= new Intent(Search.this, Search_result.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;

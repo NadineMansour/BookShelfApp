@@ -14,4 +14,5 @@
     <string name="title_activity_post">Post</string>
     <string name="title_activity_selected_post">Selected_post</string>
     <string name="title_activity_quote_new">Quote_new</string>
+    <string name="title_activity_search_result">Search_result</string>
 </resources>

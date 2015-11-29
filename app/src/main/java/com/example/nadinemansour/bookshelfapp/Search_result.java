@@ -1,60 +1,44 @@
 package com.example.nadinemansour.bookshelfapp;
 
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Friends extends AppCompatActivity {
+public class Search_result extends AppCompatActivity {
 
     private ListView lv;
 
-    public void onCreate(Bundle savedInstanceState) {
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
+        setContentView(R.layout.activity_search_result);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //setContentView(R.layout.content_friends);
+        lv = (ListView) findViewById(R.id.list1);
 
-        lv = (ListView) findViewById(R.id.friends_listview);
+        final SearchResultData[] items = new SearchResultData[6];
 
-        UserData[] data = new UserData[]{
-                new UserData("User1" , "User1@email.com"),
-                new UserData("User2" , "User2@email.com" ),
-                new UserData("User3" , "User3@email.com" ),
-                new UserData("User4" , "User4@email.com" ),
-                new UserData("User5" , "User5@email.com" )
-        };
+        items[0] = new SearchResultData("Friend1" , "Friend1@email.com", SearchAdapter.TYPE_FRIENDS);
+        items[1] = new SearchResultData("Friend2" , "Friend2@email.com", SearchAdapter.TYPE_FRIENDS);
+        items[2] = new SearchResultData("Request1" , "Request1@email.com", SearchAdapter.TYPE_PENDING);
+        items[3] = new SearchResultData("Pending1" , "Pending1@email.com", SearchAdapter.TYPE_REQUEST);
+        items[4] = new SearchResultData("NotFriend1" , "NotFriend1@email.com", SearchAdapter.TYPE_NOTFRIENDS);
+        items[5] = new SearchResultData("NotFriend2" , "NotFriend12@email.com", SearchAdapter.TYPE_NOTFRIENDS);
 
-        UserAdapter myAdapter=new
-                UserAdapter( this,
-                R.layout.friends_list_item,
-                data);
 
-        lv.setAdapter(myAdapter);
+        SearchAdapter customAdapter = new SearchAdapter(this, R.id.text, items);
+        lv.setAdapter(customAdapter);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
-                                    long id) {
-
-                Intent i = new Intent(Friends.this, User_profile.class);
-                startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -70,32 +54,32 @@ public class Friends extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent(Friends.this, User_profile.class);
+                intent= new Intent(Search_result.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent(Friends.this, News_feed.class);
+                intent = new Intent(Search_result.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent(Friends.this, Friends.class);
+                intent = new Intent(Search_result.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent(Friends.this, requests.class);
+                intent = new Intent(Search_result.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent(Friends.this, Search.class);
+                intent = new Intent(Search_result.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent(Friends.this, MainActivity.class);
+                intent = new Intent(Search_result.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

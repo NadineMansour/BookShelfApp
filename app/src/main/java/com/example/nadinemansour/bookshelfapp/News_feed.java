@@ -59,7 +59,6 @@ public class News_feed extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
     @Override
