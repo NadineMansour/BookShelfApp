@@ -55,8 +55,8 @@ public class News_feed extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
 
-                Intent intent = new Intent("com.example.nadinemansour.bookshelfapp.Selected_post");
-                startActivity(intent);
+                Intent i = new Intent(News_feed.this, Selected_post.class);
+                startActivity(i);
             }
         });
 
@@ -167,32 +167,32 @@ public class News_feed extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+                intent= new Intent(News_feed.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.News_feed");
+                intent = new Intent(News_feed.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Friends");
+                intent = new Intent(News_feed.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.requests");
+                intent = new Intent(News_feed.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Search");
+                intent = new Intent(News_feed.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.MainActivity");
+                intent = new Intent(News_feed.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

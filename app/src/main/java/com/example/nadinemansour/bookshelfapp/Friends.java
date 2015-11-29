@@ -63,7 +63,7 @@ public class Friends extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
 
-                Intent intent = new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+                Intent intent = new Intent(Friends.this, User_profile.class);
                 startActivity(intent);
             }
         });
@@ -82,32 +82,32 @@ public class Friends extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+                intent= new Intent(Friends.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.News_feed");
+                intent = new Intent(Friends.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Friends");
+                intent = new Intent(Friends.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.requests");
+                intent = new Intent(Friends.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Search");
+                intent = new Intent(Friends.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.MainActivity");
+                intent = new Intent(Friends.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

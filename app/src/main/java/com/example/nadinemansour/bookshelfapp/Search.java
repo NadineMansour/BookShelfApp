@@ -33,32 +33,32 @@ public class Search extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+                intent= new Intent(Search.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.News_feed");
+                intent = new Intent(Search.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Friends");
+                intent = new Intent(Search.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.requests");
+                intent = new Intent(Search.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Search");
+                intent = new Intent(Search.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.MainActivity");
+                intent = new Intent(Search.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

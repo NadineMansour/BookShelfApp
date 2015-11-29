@@ -29,7 +29,7 @@ public class New_status extends AppCompatActivity {
     }
 
     public void submit_status(View view) {
-        Intent intent = new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+        Intent intent = new Intent(New_status.this, User_profile.class);
         startActivity(intent);
     }
 
@@ -39,32 +39,32 @@ public class New_status extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+                intent= new Intent(New_status.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.News_feed");
+                intent = new Intent(New_status.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Friends");
+                intent = new Intent(New_status.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.requests");
+                intent = new Intent(New_status.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Search");
+                intent = new Intent(New_status.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.MainActivity");
+                intent = new Intent(New_status.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

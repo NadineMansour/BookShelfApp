@@ -53,32 +53,32 @@ public class requests extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent("com.example.nadinemansour.bookshelfapp.User_profile");
+                intent= new Intent(requests.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.News_feed");
+                intent = new Intent(requests.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Friends");
+                intent = new Intent(requests.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.requests");
+                intent = new Intent(requests.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.Search");
+                intent = new Intent(requests.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent("com.example.nadinemansour.bookshelfapp.MainActivity");
+                intent = new Intent(requests.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 
