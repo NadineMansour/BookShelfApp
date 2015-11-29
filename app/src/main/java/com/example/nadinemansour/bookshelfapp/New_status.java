@@ -19,6 +19,7 @@ public class New_status extends AppCompatActivity {
         setContentView(R.layout.activity_new_status);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override

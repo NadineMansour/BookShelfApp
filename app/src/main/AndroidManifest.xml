@@ -29,16 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".New_quote"
-            android:label="@string/title_activity_new_quote"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="com.example.nadinemansour.bookshelfapp.New_quote" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".New_review"
             android:label="@string/title_activity_new_review"
             android:theme="@style/AppTheme.NoActionBar">
@@ -105,6 +95,10 @@
         <activity
             android:name=".Selected_post"
             android:label="@string/title_activity_selected_post"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Quote_new"
+            android:label="@string/title_activity_quote_new"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

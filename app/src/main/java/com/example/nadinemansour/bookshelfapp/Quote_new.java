@@ -11,14 +11,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class New_quote extends AppCompatActivity {
+public class Quote_new extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_quote);
+        setContentView(R.layout.activity_quote_new);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -29,7 +30,7 @@ public class New_quote extends AppCompatActivity {
     }
 
     public void submit_quote(View view) {
-        Intent intent = new Intent(New_quote.this, User_profile.class);
+        Intent intent = new Intent(Quote_new.this, User_profile.class);
         startActivity(intent);
     }
 
@@ -39,32 +40,32 @@ public class New_quote extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent(New_quote.this, User_profile.class);
+                intent= new Intent(Quote_new.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent(New_quote.this, News_feed.class);
+                intent = new Intent(Quote_new.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent(New_quote.this, Friends.class);
+                intent = new Intent(Quote_new.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent(New_quote.this, requests.class);
+                intent = new Intent(Quote_new.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent(New_quote.this, Search.class);
+                intent = new Intent(Quote_new.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent(New_quote.this, MainActivity.class);
+                intent = new Intent(Quote_new.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

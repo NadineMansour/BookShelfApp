@@ -19,6 +19,7 @@ public class New_review extends AppCompatActivity {
         setContentView(R.layout.activity_new_review);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

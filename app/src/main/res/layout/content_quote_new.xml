@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.nadinemansour.bookshelfapp.New_quote"
-    tools:showIn="@layout/activity_new_quote">
+    tools:context="com.example.nadinemansour.bookshelfapp.Quote_new"
+    tools:showIn="@layout/activity_quote_new">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="78dp" />
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -65,4 +65,5 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="44dp"
         android:onClick="submit_quote"/>
+
 </RelativeLayout>

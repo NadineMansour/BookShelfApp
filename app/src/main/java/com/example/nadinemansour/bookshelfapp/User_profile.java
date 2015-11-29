@@ -61,7 +61,7 @@ public class User_profile extends AppCompatActivity {
     }
 
     public void quote(View view) {
-        Intent intent= new Intent(User_profile.this, New_quote.class);
+        Intent intent= new Intent(User_profile.this, Quote_new.class);
         startActivity(intent);
     }
 
@@ -116,5 +116,4 @@ public class User_profile extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
