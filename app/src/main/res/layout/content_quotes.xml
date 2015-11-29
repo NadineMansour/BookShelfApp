@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.nadinemansour.bookshelfapp.quotes"
+    tools:showIn="@layout/activity_quotes">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newsfeed_listview"
+        android:layout_marginTop="119dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All"
+        android:id="@+id/all_checkBox"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="58dp"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quotes"
+        android:id="@+id/quotes_checkBox"
+        android:layout_alignTop="@+id/all_checkBox"
+        android:layout_toRightOf="@+id/all_checkBox"
+        android:layout_toEndOf="@+id/all_checkBox"
+        android:checked="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reviews"
+        android:id="@+id/reviews_checkBox"
+        android:checked="false"
+        android:layout_alignTop="@+id/quotes_checkBox"
+        android:layout_toRightOf="@+id/quotes_checkBox"
+        android:layout_toEndOf="@+id/quotes_checkBox" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:id="@+id/status_checkBox"
+        android:checked="false"
+        android:layout_alignTop="@+id/reviews_checkBox"
+        android:layout_toRightOf="@+id/reviews_checkBox"
+        android:layout_toEndOf="@+id/reviews_checkBox" />
+
+</RelativeLayout>

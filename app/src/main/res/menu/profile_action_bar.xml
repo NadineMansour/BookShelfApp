@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http:// schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/search_id"
+        android:title="Search"
+        app:showAsAction="always"
+        />
+    <!-- "Mark Favorite", should appear as action button if possible -->
+    <item
+        android:id="@+id/profile_id"
+        android:title="Profile"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/newsfeed_id"
+        android:title="NewsFeed"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/friends_id"
+        android:icon="@drawable/ic_friends"
+        app:showAsAction="ifRoom"
+        android:title="Friends"/>
+
+    <item
+        android:id="@+id/requests_id"
+        android:title="Requests"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/logout_id"
+        android:title="Log Out"
+        app:showAsAction="ifRoom"/>
+
+
+
+
+</menu>
