@@ -19,6 +19,7 @@ import java.util.List;
 public class Friends extends AppCompatActivity {
 
     private ListView lv;
+    UserData data[];
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -31,40 +32,28 @@ public class Friends extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.friends_listview);
 
-        List<String> your_array_list = new ArrayList<String>();
-        your_array_list.add("User 1");
-        your_array_list.add("User 2");
-        your_array_list.add("User 3");
-        your_array_list.add("User 3");
-        your_array_list.add("User 4");
-        your_array_list.add("User 5");
-        your_array_list.add("User 6");
-        your_array_list.add("User 7");
-        your_array_list.add("User 8");
-        your_array_list.add("User 9");
-        your_array_list.add("User 10");
-        your_array_list.add("User 11");
-        your_array_list.add("User 12");
-        your_array_list.add("User 13");
-        your_array_list.add("User 14");
-        your_array_list.add("User 15");
+        data = new UserData[]{
+                new UserData("User1" , "User1@email.com"),
+                new UserData("User2" , "User2@email.com" ),
+                new UserData("User3" , "User3@email.com" ),
+                new UserData("User4" , "User4@email.com" ),
+                new UserData("User5" , "User5@email.com" )
+        };
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
+        UserAdapter myAdapter=new
+                UserAdapter( this,
                 R.layout.friends_list_item,
-                R.id.user_name,
-                your_array_list );
+                data);
 
-        lv.setAdapter(arrayAdapter);
+        lv.setAdapter(myAdapter);
 
-        // React to user clicks on item
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
 
-                Intent intent = new Intent(Friends.this, User_profile.class);
-                startActivity(intent);
+                Intent i = new Intent(Friends.this, User_profile.class);
+                startActivity(i);
             }
         });
     }
