@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.nadinemansour.bookshelfapp.User_profile"
-    tools:showIn="@layout/activity_user_profile">
+    tools:context="com.example.nadinemansour.bookshelfapp.RequestProfile"
+    tools:showIn="@layout/activity_request_profile">
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,34 +27,23 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quote"
+        android:text="Accept"
         android:id="@+id/add"
-        android:onClick="quote"
+        android:onClick="accept"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/picture"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Review"
-        android:onClick="review"
-        android:id="@+id/new_review"
+        android:text="Reject"
+        android:onClick="reject"
+        android:id="@+id/reject"
         android:layout_alignTop="@+id/add"
         android:layout_toRightOf="@+id/add"
         android:layout_toEndOf="@+id/add" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status"
-        android:onClick="status"
-        android:id="@+id/reject"
-        android:layout_alignTop="@+id/new_review"
-        android:layout_toRightOf="@+id/new_review"
-        android:layout_toEndOf="@+id/new_review" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,18 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/picture"
+        android:background="#f50707"
         android:layout_alignTop="@+id/name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/new_review"
-        android:layout_alignBottom="@+id/email" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/profile_listview"
-        android:layout_below="@+id/add"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_alignBottom="@+id/email"
+        android:src="#e70909" />
 
 </RelativeLayout>

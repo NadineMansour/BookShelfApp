@@ -10,9 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class Search extends AppCompatActivity {
-
+    public static String content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,8 @@ public class Search extends AppCompatActivity {
     }
 
     public void search_submit(View view) {
+        EditText text = (EditText)findViewById(R.id.content);
+        content = text.getText().toString();
         Intent intent= new Intent(Search.this, Search_result.class);
         startActivity(intent);
     }

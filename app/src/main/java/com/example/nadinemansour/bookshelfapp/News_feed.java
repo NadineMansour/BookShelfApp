@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,14 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
+import com.example.nadinemansour.bookshelfapp.util.ApiRouter;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 
 public class News_feed extends AppCompatActivity {
 
@@ -25,26 +34,66 @@ public class News_feed extends AppCompatActivity {
     private boolean quotes;
     private boolean reviews;
     private boolean status;
+    int qcount,rcount,scout = 0;
     NewsFeedData data[];
+    NewsFeedData quotesl[];
+    NewsFeedData reviewsl[];
+    NewsFeedData statusl[];
+    NewsFeedAdapter myAdapter;
+    public  static NewsFeedData selected_post;
+    public static UserData current_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        current_user = User_profile.current_user;
+        lv = (ListView) findViewById(R.id.newsfeed_listview);
+        getNewsFeed();
+    }
 
+    void getNewsFeed(){
+        ApiRouter.withToken(current_user.token).getNewsFeed(new Callback<List<NewsFeedData>>() {
+            @Override
+            public void success(List<NewsFeedData> posts, Response response) {
+                Log.d("Newsfeed:", "Success");
+                data = new NewsFeedData[posts.size()];
+                int i = 0;
+                int length = 0;
+                for (final NewsFeedData post : posts) {
+                    data[i] = post;
+                    switch (post.genre) {
+                        case "quote":
+                            qcount++;
+                            break;
+                        case "review":
+                            rcount++;
+                            break;
+                        case "status":
+                            scout++;
+                            break;
+                        default:
+                            break;
+                    }
+                    i++;
+                }
+                Log.d("NewsfeedSize:", (data.length) + "");
+                setNewsFeed();
+            }
+
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d("Newsfeed:", "Failure");
+            }
+        });
+    }
+
+    void setNewsFeed(){
         lv = (ListView) findViewById(R.id.newsfeed_listview);
 
-        data = new NewsFeedData[]{
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",1),
-                new NewsFeedData("User2" , "User2" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",2),
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",3),
-                new NewsFeedData("User1" , "User1" , "Review" , "This is my first quote from this awesome book" , "Book2" , "Author2",4),
-                new NewsFeedData("User1" , "User1" , "status" , "This is my first quote from this awesome book" , "Book1" , "Author1",5)
-        };
-
-        NewsFeedAdapter myAdapter=new
-                NewsFeedAdapter( this,
+        myAdapter = new
+                NewsFeedAdapter(this,
                 R.layout.newsfeed_list_item,
                 data);
 
@@ -55,6 +104,8 @@ public class News_feed extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
 
+                selected_post = data[position];
+                User_profile.selected_post = data[position];
                 Intent i = new Intent(News_feed.this, Selected_post.class);
                 startActivity(i);
             }
@@ -69,55 +120,95 @@ public class News_feed extends AppCompatActivity {
     }
 
     void quotes(){
-        NewsFeedData quotes[]=new NewsFeedData[]{
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",1),
-                new NewsFeedData("User2" , "User2" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",2),
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",3)
-        };
+        quotesl =new NewsFeedData[qcount];
+        int k =0;
+        for (int i = 0;i<data.length;i++){
+            if (data[i].genre.equals("quote")){
+                quotesl[k] = data[i];
+                k++;
+            }
+        }
         NewsFeedAdapter myAdapter=new
                 NewsFeedAdapter( this,
                 R.layout.newsfeed_list_item,
-                quotes);
+                quotesl);
 
         lv.setAdapter(myAdapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
+                                    long id) {
+
+                selected_post = data[position];
+                User_profile.selected_post = quotesl[position];
+                Intent i = new Intent(News_feed.this, Selected_post.class);
+                startActivity(i);
+            }
+        });
     }
 
     void reviews(){
-        NewsFeedData reviews[]=new NewsFeedData[]{
-                new NewsFeedData("User1" , "User1" , "Review" , "This is my first quote from this awesome book" , "Book2" , "Author2",4)
-        };
+        reviewsl =new NewsFeedData[rcount];
+        int k =0;
+        for (int i = 0;i<data.length;i++){
+            if (data[i].genre.equals("review")){
+                reviewsl[k] = data[i];
+                k++;
+            }
+        }
         NewsFeedAdapter myAdapter=new
                 NewsFeedAdapter( this,
                 R.layout.newsfeed_list_item,
-                reviews);
+                reviewsl);
 
         lv.setAdapter(myAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
+                                    long id) {
+
+                selected_post = reviewsl[position];
+                User_profile.selected_post = reviewsl[position];
+                Intent i = new Intent(News_feed.this, Selected_post.class);
+                startActivity(i);
+            }
+        });
     }
 
     void status(){
-        NewsFeedData status[]=new NewsFeedData[]{
-                new NewsFeedData("User1" , "User1" , "status" , "This is my first quote from this awesome book" , "Book1" , "Author1",5)
+        statusl =new NewsFeedData[scout];
+        int k =0;
+        for (int i = 0;i<data.length;i++){
+            if (data[i].genre.equals("status")){
+                statusl[k] = data[i];
+                k++;
+            }
         };
         NewsFeedAdapter myAdapter=new
                 NewsFeedAdapter( this,
                 R.layout.newsfeed_list_item,
-                status);
+                statusl);
 
         lv.setAdapter(myAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
+                                    long id) {
+
+                selected_post = statusl[position];
+                User_profile.selected_post = statusl[position];
+                Intent i = new Intent(News_feed.this, Selected_post.class);
+                startActivity(i);
+            }
+        });
     }
 
     void all(){
-        NewsFeedData all[]=new NewsFeedData[]{
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",1),
-                new NewsFeedData("User2" , "User2" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",2),
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",3),
-                new NewsFeedData("User1" , "User1" , "Review" , "This is my first quote from this awesome book" , "Book2" , "Author2",4),
-                new NewsFeedData("User1" , "User1" , "status" , "This is my first quote from this awesome book" , "Book1" , "Author1",5)
-        };
         NewsFeedAdapter myAdapter=new
                 NewsFeedAdapter( this,
                 R.layout.newsfeed_list_item,
-                all);
+                data);
 
         lv.setAdapter(myAdapter);
     }

@@ -6,21 +6,25 @@ package com.example.nadinemansour.bookshelfapp;
 public class NewsFeedData {
     String user1;
     String user2;
-    String type;
+    String genre;
     String content;
     String book;
     String author;
-    int post_id;
+    int id;
+    int user_id;
+    int timeline_id;
+    UserData user;
+    UserData timeline;
 
 
     public NewsFeedData(String u1 , String u2, String t, String c , String b , String a , int i){
         super();
         this.user1 = u1;
         this.user2 = u2;
-        this.type = t;
+        this.genre = t;
         this.content = c;
         this.book = b;
         this.author = a;
-        this.post_id = i;
+        this.id = i;
     }
 }

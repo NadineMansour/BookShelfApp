@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.nadinemansour.bookshelfapp.util.ApiRouter;
 
@@ -19,51 +19,46 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class New_status extends AppCompatActivity {
-
-    int user_id;
-    int profile_id;
-    EditText book;
-    EditText author;
+public class NotFriends extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_status);
+        setContentView(R.layout.activity_not_friends);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        TextView user_name = (TextView)findViewById(R.id.name);
+        TextView email = (TextView)findViewById(R.id.email);
+        TextView provider = (TextView)findViewById(R.id.provider);
 
-        book = (EditText) findViewById(R.id.book);
-        author = (EditText) findViewById(R.id.author);
-        user_id = User_profile.current_user.id;
-        profile_id = User_profile.profile.id;
+        user_name.setText(Search_result.selected_person.name);
+        email.setText(Search_result.selected_person.email);
+        provider.setText(Search_result.selected_person.provider);
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.profile_action_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public void submit_status(View view) {
-        String b = book.getText().toString();
-        String a = author.getText().toString();
-        ApiRouter.withToken(User_profile.current_user.token).newStatus("status", user_id, profile_id, b, a,"nothing",  new Callback<Response>() {
+    public void addFriend(View view) {
+        ApiRouter.withToken(User_profile.current_user.token).addFriend(Search_result.selected_person.id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-                Log.d("New Status:", "Success");
-                Intent intent = new Intent(New_status.this, User_profile.class);
+                Log.d("Add Friend:", "Success");
+                Intent intent = new Intent(NotFriends.this, Search_result.class);
                 startActivity(intent);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("New Status:", "Success");
+                Log.d("New quote:", "Success");
             }
         });
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.profile_action_bar, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -72,32 +67,32 @@ public class New_status extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent(New_status.this, User_profile.class);
+                intent= new Intent(NotFriends.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent(New_status.this, News_feed.class);
+                intent = new Intent(NotFriends.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent(New_status.this, Friends.class);
+                intent = new Intent(NotFriends.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent(New_status.this, requests.class);
+                intent = new Intent(NotFriends.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent(New_status.this, Search.class);
+                intent = new Intent(NotFriends.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent(New_status.this, MainActivity.class);
+                intent = new Intent(NotFriends.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 

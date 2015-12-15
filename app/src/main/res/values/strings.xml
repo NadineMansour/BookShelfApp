@@ -15,4 +15,10 @@
     <string name="title_activity_selected_post">Selected_post</string>
     <string name="title_activity_quote_new">Quote_new</string>
     <string name="title_activity_search_result">Search_result</string>
+    <string name="title_activity_friends_item">friends_item</string>
+    <string name="app_id">1518672208448051</string>
+    <string name="title_activity_facebook_login">FacebookLogin</string>
+    <string name="title_activity_friends_profile">FriendsProfile</string>
+    <string name="title_activity_request_profile">RequestProfile</string>
+    <string name="title_activity_not_friends">NotFriends</string>
 </resources>

@@ -2,20 +2,39 @@ package com.example.nadinemansour.bookshelfapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.nadinemansour.bookshelfapp.util.ApiRouter;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class User_profile extends AppCompatActivity {
 
     private ListView lv;
+    public static UserData current_user;
+    public static UserData profile;
+    NewsFeedData data[];
+    NewsFeedAdapter myAdapter;
+    public  static NewsFeedData selected_post;
+    private TextView user_name;
+    private TextView email;
+    private TextView provider;
+    boolean f1,f2 = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,18 +44,57 @@ public class User_profile extends AppCompatActivity {
         //getSupportActionBar().setLogo(R.drawable.ic_friends);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        user_name = (TextView)findViewById(R.id.name);
+        email = (TextView)findViewById(R.id.email);
+        provider = (TextView)findViewById(R.id.provider);
+
+        final String user_app_token = FacebookLoginFragment.user_token;
+
+        //get the current user data
+        ApiRouter.withToken(user_app_token).getUser(new Callback<UserData>() {
+            @Override
+            public void success(UserData user, Response response) {
+                Log.d("Profile:", "Success");
+                current_user = user;
+                profile = user;
+                user_name.setText(current_user.name);
+                email.setText(current_user.email);
+                provider.setText(current_user.provider);
+
+                ApiRouter.withToken(user_app_token).getTimeline(new Callback<List<NewsFeedData>>() {
+                    @Override
+                    public void success(List<NewsFeedData> posts, Response response) {
+                        Log.d("Posts:", "Success");
+                        data = new NewsFeedData[posts.size()];
+                        int i = 0;
+                        for (final NewsFeedData post : posts) {
+                            data[i] = post;
+                            i++;
+                        }
+                        setTimeline();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError e) {
+                        Log.d("Posts:", "Failure");
+                    }
+                });
+            }
+
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d("Profile:", "Failure");
+            }
+        });
+    }
+
+
+    void setTimeline(){
+
         lv = (ListView) findViewById(R.id.profile_listview);
 
-        NewsFeedData data[]=new NewsFeedData[]{
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",1),
-                new NewsFeedData("User2" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",2),
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",3),
-                new NewsFeedData("User1" , "User1" , "Review" , "This is my first quote from this awesome book" , "Book2" , "Author2",4),
-                new NewsFeedData("User1" , "User1" , "Quote" , "This is my first quote from this awesome book" , "Book1" , "Author1",5)
-        };
-
-        NewsFeedAdapter myAdapter=new
-                NewsFeedAdapter( this,
+        myAdapter = new
+                NewsFeedAdapter(this,
                 R.layout.newsfeed_list_item,
                 data);
 
@@ -47,12 +105,12 @@ public class User_profile extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
 
+                selected_post = data[position];
                 Intent i = new Intent(User_profile.this, Selected_post.class);
                 startActivity(i);
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

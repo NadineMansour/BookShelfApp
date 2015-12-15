@@ -1,15 +1,26 @@
 package com.example.nadinemansour.bookshelfapp;
 
+import java.util.List;
+
 /**
  * Created by NadineMansour on 11/29/15.
  */
 public class UserData {
-    String user_name;
+    String name;
+    String picture;
+    String token;
     String email;
+    String provider;
+    int id;
 
-    public UserData(String u , String e){
+
+    public UserData(String n , String i , String t , String e, String p , int id){
         super();
-        this.user_name = u;
+        this.name = n;
         this.email = e;
+        this.picture = i;
+        this.token = t;
+        this.provider = p;
+        this.id = id;
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,12 +14,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.nadinemansour.bookshelfapp.util.ApiRouter;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class Friends extends AppCompatActivity {
 
     private ListView lv;
+    UserData[] data;
+    public static UserData selected_friend;
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -26,22 +35,39 @@ public class Friends extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getFriends();
+    }
 
-        //setContentView(R.layout.content_friends);
+    void getFriends(){
+        ApiRouter.withToken(User_profile.current_user.token).getFriends(new Callback<List<UserData>>() {
+            @Override
+            public void success(List<UserData> friends, Response response) {
+                Log.d("Friends:", "Success");
+                lv = (ListView) findViewById(R.id.friends_listview);
+                data = new UserData[friends.size()];
+                int i = 0;
+                for (final UserData friend : friends) {
+                    if (friend.email == null)
+                        friend.email = "No Email";
+                    data[i] = friend;
+                    i++;
+                }
+                setFriends();
+            }
 
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d("Friend:", "Failure");
+            }
+        });
+    }
+
+    void setFriends(){
         lv = (ListView) findViewById(R.id.friends_listview);
-
-        UserData[] data = new UserData[]{
-                new UserData("User1" , "User1@email.com"),
-                new UserData("User2" , "User2@email.com" ),
-                new UserData("User3" , "User3@email.com" ),
-                new UserData("User4" , "User4@email.com" ),
-                new UserData("User5" , "User5@email.com" )
-        };
 
         UserAdapter myAdapter=new
                 UserAdapter( this,
-                R.layout.friends_list_item,
+                R.layout.activity_friends_item,
                 data);
 
         lv.setAdapter(myAdapter);
@@ -51,7 +77,8 @@ public class Friends extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
 
-                Intent i = new Intent(Friends.this, User_profile.class);
+                selected_friend = data[position];
+                Intent i = new Intent(Friends.this, FriendsProfile.class);
                 startActivity(i);
             }
         });

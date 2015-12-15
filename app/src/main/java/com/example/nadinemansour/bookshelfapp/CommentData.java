@@ -6,6 +6,7 @@ package com.example.nadinemansour.bookshelfapp;
 public class CommentData {
     String content;
     String user;
+    int user_id;
 
     public CommentData(String c , String u){
         super();

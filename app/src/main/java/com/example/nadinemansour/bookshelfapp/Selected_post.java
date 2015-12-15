@@ -6,15 +6,31 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.nadinemansour.bookshelfapp.util.ApiRouter;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class Selected_post extends AppCompatActivity {
     private ListView lv;
+    public static NewsFeedData post;
     CommentData data[];
+    String app_token;
+    TextView content;
+    TextView footer;
+    TextView user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +38,47 @@ public class Selected_post extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        app_token = User_profile.current_user.token;
+        post = User_profile.selected_post;
+        content = (TextView) findViewById(R.id.post_content);
+        footer = (TextView) findViewById(R.id.footer);
+        user = (TextView) findViewById(R.id.post_user);
+
+        if (post.genre.equals("status")){
+            content.setText("I am currently reading "+post.book+" by "+post.author);
+            footer.setText("");
+        }
+        else {
+            footer.setText(post.book+" by "+post.author);
+            content.setText(post.content);
+        }
+        comments();
+    }
+
+    public void comments(){
+        //get the current user data
+        ApiRouter.withToken(app_token).getRelatedComments(post.id, new Callback<List<CommentData>>() {
+            @Override
+            public void success(List<CommentData> comments, Response response) {
+                Log.d("Comments:", "Success");
+                data = new CommentData[comments.size()];
+                int i = 0;
+                for (CommentData comment : comments) {
+                    data[i] = comment;
+                    i++;
+                }
+                setComments();
+            }
+
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d("Comments:", "Failure");
+            }
+        });
+    }
+
+    public void setComments(){
         lv = (ListView) findViewById(R.id.comments_listview);
-
-        data = new CommentData[]{
-                new CommentData("The content of Comment#1." , "User1"),
-                new CommentData("The content of Comment#2." , "User1"),
-                new CommentData("The content of Comment#3." , "User3"),
-
-        };
 
         CommentAdapter myAdapter=new
                 CommentAdapter( this,
@@ -37,6 +86,24 @@ public class Selected_post extends AppCompatActivity {
                 data);
 
         lv.setAdapter(myAdapter);
+    }
+
+    public void addComment(View view) {
+        EditText comment = (EditText) findViewById(R.id.comment_content);
+        String comment_content = comment.getText().toString();
+        ApiRouter.withToken(app_token).addComment(post.id, User_profile.current_user.id,comment_content, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                Log.d("Add Comment:", "Success");
+                Intent intent = new Intent(Selected_post.this, Selected_post.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Add Comment:", "Success");
+            }
+        });
     }
 
     @Override

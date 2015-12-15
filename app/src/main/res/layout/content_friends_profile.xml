@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.nadinemansour.bookshelfapp.User_profile"
-    tools:showIn="@layout/activity_user_profile">
+    tools:context="com.example.nadinemansour.bookshelfapp.FriendsProfile"
+    tools:showIn="@layout/activity_friends_profile">
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,18 +82,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/picture"
+        android:background="#f50707"
         android:layout_alignTop="@+id/name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/new_review"
-        android:layout_alignBottom="@+id/email" />
+        android:layout_alignBottom="@+id/email"
+        android:src="#e70909" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/profile_listview"
+        android:layout_below="@+id/remove"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove"
+        android:id="@+id/remove"
+        android:onClick="remove"
         android:layout_below="@+id/add"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends"
+        android:id="@+id/friends"
+        android:onClick="friends"
+        android:layout_below="@+id/new_review"
+        android:layout_toRightOf="@+id/remove"
+        android:layout_toEndOf="@+id/remove" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Posts"
+        android:id="@+id/posts"
+        android:onClick="posts"
+        android:layout_below="@+id/reject"
+        android:layout_toRightOf="@+id/friends"
+        android:layout_toEndOf="@+id/friends" />
 
 </RelativeLayout>

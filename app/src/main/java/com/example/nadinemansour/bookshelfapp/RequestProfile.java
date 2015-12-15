@@ -11,74 +11,65 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.nadinemansour.bookshelfapp.util.ApiRouter;
-
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class requests extends AppCompatActivity {
+public class RequestProfile extends AppCompatActivity {
 
-    private ListView lv;
-    UserData [] data;
-    public static UserData selected_request;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requests);
+        setContentView(R.layout.activity_request_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getRequests();
+
+        TextView user_name = (TextView)findViewById(R.id.name);
+        TextView email = (TextView)findViewById(R.id.email);
+        TextView provider = (TextView)findViewById(R.id.provider);
+
+        user_name.setText(requests.selected_request.name);
+        email.setText(requests.selected_request.email);
+        provider.setText(requests.selected_request.provider);
     }
 
-    void getRequests(){
-        ApiRouter.withToken(User_profile.current_user.token).getRequests(new Callback<List<UserData>>() {
+
+    public void accept(View view) {
+        ApiRouter.withToken(User_profile.current_user.token).accept(requests.selected_request.id, new Callback<Response>() {
             @Override
-            public void success(List<UserData> requests, Response response) {
-                Log.d("Requests:", "Success");
-                data = new UserData[requests.size()];
-                int i = 0;
-                for (final UserData request : requests) {
-                    if (request.email == null)
-                        request.email = "No Email";
-                    data[i] = request;
-                    i++;
-                }
-                setRequests();
-            }
-            @Override
-            public void failure(RetrofitError e) {
-                Log.d("Requests:", "Failure");
-            }
-        });
-    }
-
-    void setRequests(){
-        lv = (ListView) findViewById(R.id.request_listview);
-
-        RequestsAdapter myAdapter=new
-                RequestsAdapter( this,
-                R.layout.requests_list_item,
-                data);
-
-        lv.setAdapter(myAdapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
-                                    long id) {
-
-                selected_request = data[position];
-                Intent i = new Intent(requests.this, RequestProfile.class);
+            public void success(Response posts, Response response) {
+                Log.d("Accept:", "Success");
+                Intent i = new Intent(RequestProfile.this, requests.class);
                 startActivity(i);
             }
+
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d("Accept:", "Failure");
+            }
         });
     }
+
+    public void reject(View view) {
+        ApiRouter.withToken(User_profile.current_user.token).reject(requests.selected_request.id, new Callback<Response>() {
+            @Override
+            public void success(Response posts, Response response) {
+                Log.d("Reject:", "Success");
+                Intent i = new Intent(RequestProfile.this, requests.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void failure(RetrofitError e) {
+                Log.d("Reject:", "Failure");
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -92,32 +83,32 @@ public class requests extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.profile_id:
-                intent= new Intent(requests.this, User_profile.class);
+                intent= new Intent(RequestProfile.this, User_profile.class);
                 startActivity(intent);
                 return true;
 
             case R.id.newsfeed_id:
-                intent = new Intent(requests.this, News_feed.class);
+                intent = new Intent(RequestProfile.this, News_feed.class);
                 startActivity(intent);
                 return true;
 
             case R.id.friends_id:
-                intent = new Intent(requests.this, Friends.class);
+                intent = new Intent(RequestProfile.this, Friends.class);
                 startActivity(intent);
                 return true;
 
             case R.id.requests_id:
-                intent = new Intent(requests.this, requests.class);
+                intent = new Intent(RequestProfile.this, requests.class);
                 startActivity(intent);
                 return true;
 
             case R.id.search_id:
-                intent = new Intent(requests.this, Search.class);
+                intent = new Intent(RequestProfile.this, Search.class);
                 startActivity(intent);
                 return true;
 
             case R.id.logout_id:
-                intent = new Intent(requests.this, MainActivity.class);
+                intent = new Intent(RequestProfile.this, MainActivity.class);
                 startActivity(intent);
                 return true;
 
@@ -127,4 +118,6 @@ public class requests extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 }

@@ -5,7 +5,6 @@ package com.example.nadinemansour.bookshelfapp;
  */
 public class RequestsData {
     String username;
-
     public RequestsData(String user){
         this.username = user;
     }

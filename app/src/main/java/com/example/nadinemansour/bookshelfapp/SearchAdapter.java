@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 /**
@@ -55,7 +54,7 @@ public class SearchAdapter extends ArrayAdapter {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.not_friends, null);
             }
 
-            TextView user = (TextView) convertView.findViewById(R.id.user_name);
+            TextView user = (TextView) convertView.findViewById(R.id.name);
             TextView email = (TextView) convertView.findViewById(R.id.email);
             viewHolder = new SearchViewHolder(user , email);
 
@@ -65,7 +64,7 @@ public class SearchAdapter extends ArrayAdapter {
             viewHolder = (SearchViewHolder) convertView.getTag();
         }
 
-        viewHolder.user_name.setText(listViewItem.user_name);
+        viewHolder.user_name.setText(listViewItem.name);
         viewHolder.email.setText( listViewItem.email);
 
         return convertView;

@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Post"
-        android:id="@+id/new_quote"
+        android:id="@+id/add"
         android:layout_marginTop="53dp"
         android:layout_below="@+id/author"
         android:layout_alignParentLeft="true"
